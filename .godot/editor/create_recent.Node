@@ -1,0 +1,12 @@
+Area2D
+CharacterBody2D
+RigidBody2D
+Label
+VBoxContainer
+HBoxContainer
+MarginContainer
+RichTextLabel
+Control
+CollisionShape2D
+Sprite2D
+AnimatedSprite2D

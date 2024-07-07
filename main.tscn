@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://c06d6vhwa4bmn"]
+
+[ext_resource type="PackedScene" uid="uid://q5rjvhitdeou" path="res://player.tscn" id="1_b0mm2"]
+[ext_resource type="Script" path="res://main.gd" id="1_detym"]
+[ext_resource type="PackedScene" uid="uid://x1gdgd1nebe4" path="res://ball.tscn" id="2_onx7t"]
+[ext_resource type="Script" path="res://background.gd" id="2_uv6en"]
+[ext_resource type="PackedScene" uid="uid://cafig1ocy1v7s" path="res://background.tscn" id="3_4oa5l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6885e"]
+radius = 16.1245
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t8mxe"]
+height = 98.0
+
+[node name="Pong" type="Node2D"]
+script = ExtResource("1_detym")
+
+[node name="Area2D" parent="." instance=ExtResource("3_4oa5l")]
+script = ExtResource("2_uv6en")
+
+[node name="Ball" parent="." instance=ExtResource("2_onx7t")]
+position = Vector2(81, 1)
+
+[node name="HitboxBall" type="CollisionShape2D" parent="Ball"]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_6885e")
+
+[node name="player_1" parent="." instance=ExtResource("1_b0mm2")]
+position = Vector2(-10, 2)
+
+[node name="HitboxPlayer" type="CollisionShape2D" parent="player_1"]
+position = Vector2(-1, -1)
+shape = SubResource("CapsuleShape2D_t8mxe")
+
+[node name="player_2" parent="." instance=ExtResource("1_b0mm2")]
+position = Vector2(-10, 2)
+
+[node name="HitboxPlayer" type="CollisionShape2D" parent="player_2"]
+position = Vector2(-1, -1)
+shape = SubResource("CapsuleShape2D_t8mxe")
+
+[node name="ScoreBoard" type="MarginContainer" parent="."]
+y_sort_enabled = true
+custom_minimum_size = Vector2(200, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 600.0
+offset_right = 1820.0
+offset_bottom = 43.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScoreBoard"]
+y_sort_enabled = true
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 5.78
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScoreBoard/HBoxContainer"]
+y_sort_enabled = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScoreBoard/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Spieler 1"
+
+[node name="Score_player_1" type="Label" parent="ScoreBoard/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScoreBoard/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="ScoreBoard/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Spieler 2"
+
+[node name="Score_player_2" type="Label" parent="ScoreBoard/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "0"
+
+[connection signal="point_for_player_1" from="Ball" to="." method="_on_ball_point_for_player_1"]
+[connection signal="point_for_player_2" from="Ball" to="." method="_on_ball_point_for_player_2"]
+[connection signal="area_entered" from="player_1" to="player_1" method="_on_area_entered"]
+[connection signal="area_entered" from="player_2" to="player_2" method="_on_area_entered"]

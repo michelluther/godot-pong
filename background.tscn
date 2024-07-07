@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cafig1ocy1v7s"]
+
+[ext_resource type="Texture2D" uid="uid://4v4dsgxfm3m7" path="res://art/background.png" id="1_8860d"]
+
+[node name="Area2D" type="Area2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(601, 401)
+texture = ExtResource("1_8860d")

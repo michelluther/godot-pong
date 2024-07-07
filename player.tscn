@@ -1,0 +1,93 @@
+[gd_scene load_steps=13 format=3 uid="uid://q5rjvhitdeou"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_womu3"]
+[ext_resource type="Texture2D" uid="uid://quhyrv70dogp" path="res://art/paddle.png" id="2_8p3dd"]
+[ext_resource type="Texture2D" uid="uid://dkgxjvfknecvl" path="res://art/paddle_mit_kreis1.png" id="3_4b7ed"]
+[ext_resource type="Texture2D" uid="uid://c01iuuoj0pqwi" path="res://art/paddle_mit_kreis2.png" id="4_4yyq4"]
+[ext_resource type="Texture2D" uid="uid://b3cwwnmysrhty" path="res://art/paddle_mit_kreis3.png" id="5_o65fp"]
+[ext_resource type="Texture2D" uid="uid://c66p3thvp4diq" path="res://art/feuer_1.png" id="6_08sme"]
+[ext_resource type="Script" path="res://BallCollision.gd" id="6_iypal"]
+[ext_resource type="Texture2D" uid="uid://78gs35fickc4" path="res://art/feuer_2.png" id="7_vn2ae"]
+[ext_resource type="Texture2D" uid="uid://dtjiua270riyl" path="res://art/feuer_3.png" id="8_edbms"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u2r66"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8p3dd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4b7ed")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4yyq4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_o65fp")
+}],
+"loop": true,
+"name": &"abwehr",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8p3dd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r00gh"]
+radius = 6.0
+height = 50.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ku8i4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_08sme")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_vn2ae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_edbms")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 6.0
+}]
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_womu3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_u2r66")
+
+[node name="BallCollision" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_r00gh")
+script = ExtResource("6_iypal")
+
+[node name="FeuerOben" type="AnimatedSprite2D" parent="."]
+position = Vector2(7.62939e-06, -97)
+scale = Vector2(0.31, 0.31)
+sprite_frames = SubResource("SpriteFrames_ku8i4")
+animation = &"moving"
+
+[node name="FeuerUnten" type="AnimatedSprite2D" parent="."]
+position = Vector2(4.54747e-13, 96)
+rotation = 3.14159
+scale = Vector2(0.31, 0.31)
+sprite_frames = SubResource("SpriteFrames_ku8i4")
+animation = &"moving"
